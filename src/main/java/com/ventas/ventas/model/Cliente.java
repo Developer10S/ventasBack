@@ -1,6 +1,11 @@
 package com.ventas.ventas.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.Objects;
 
 @Entity
 @Table(name="cliente")
@@ -9,16 +14,23 @@ public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idCliente;
-    @Column(name="nombres",nullable = false,length = 70)
-    private String nombres;
-    @Column(name="apellidos",nullable = false,length = 150)
-    private String apellidos;
-    @Column(name="direccion",nullable = true,length = 150)
-    private String direccion;
-    @Column(name="telefono",nullable = true,length = 10)
-    private String telefono;
+
+    @Column(length = 20)
+    private String nit;
+
+    @Column(length = 20)
+    private String razonSocial;
+
+    @NotNull
+    @NotBlank(message = "El email es obligatorio")
+    @Size(min=10,message = "El email es obligatorio")
+    @Email(message = "El email es un formato invalido")
     @Column(name="email",nullable = false,length = 150)
     private String email;
+
+    @OneToOne
+    @JoinColumn(name = "id_persona", nullable = false)
+    private Persona idPersona;
 
     public Integer getIdCliente() {
         return idCliente;
@@ -28,36 +40,20 @@ public class Cliente {
         this.idCliente = idCliente;
     }
 
-    public String getNombres() {
-        return nombres;
+    public String getNit() {
+        return nit;
     }
 
-    public void setNombres(String nombres) {
-        this.nombres = nombres;
+    public void setNit(String nit) {
+        this.nit = nit;
     }
 
-    public String getApellidos() {
-        return apellidos;
+    public String getRazonSocial() {
+        return razonSocial;
     }
 
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setRazonSocial(String razonSocial) {
+        this.razonSocial = razonSocial;
     }
 
     public String getEmail() {
@@ -66,5 +62,26 @@ public class Cliente {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Persona getIdPersona() {
+        return idPersona;
+    }
+
+    public void setIdPersona(Persona idPersona) {
+        this.idPersona = idPersona;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cliente cliente = (Cliente) o;
+        return Objects.equals(idCliente, cliente.idCliente);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idCliente);
     }
 }
