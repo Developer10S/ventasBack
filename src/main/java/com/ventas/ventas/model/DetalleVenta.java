@@ -1,5 +1,7 @@
 package com.ventas.ventas.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -10,13 +12,16 @@ public class DetalleVenta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idDetalleVenta;
 
-    private Double precio;
+    private Double precioUnitario;
     private Integer cantidad;
+
+    private Double precioTotal;
 
     @ManyToOne
     @JoinColumn(name = "id_producto", nullable = false)
     private Producto idProducto;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "id_venta", nullable = false)
     private Venta idVenta;
@@ -29,12 +34,12 @@ public class DetalleVenta {
         this.idDetalleVenta = idDetalleVenta;
     }
 
-    public Double getPrecio() {
-        return precio;
+    public Double getPrecioUnitario() {
+        return precioUnitario;
     }
 
-    public void setPrecio(Double precio) {
-        this.precio = precio;
+    public void setPrecioUnitario(Double precioUnitario) {
+        this.precioUnitario = precioUnitario;
     }
 
     public Integer getCantidad() {
@@ -59,6 +64,14 @@ public class DetalleVenta {
 
     public void setIdVenta(Venta idVenta) {
         this.idVenta = idVenta;
+    }
+
+    public Double getPrecioTotal() {
+        return precioTotal;
+    }
+
+    public void setPrecioTotal(Double precioTotal) {
+        this.precioTotal = precioTotal;
     }
 
     @Override

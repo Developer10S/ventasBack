@@ -18,7 +18,7 @@ public class Venta {
     private Cliente idCliente;
 
     @OneToMany (mappedBy = "idVenta",cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_detalle_producto", nullable = false)
+
     private List<DetalleVenta> detalleVentaList;
 
     public Integer getIdVenta() {
@@ -43,6 +43,14 @@ public class Venta {
 
     public void setIdCliente(Cliente idCliente) {
         this.idCliente = idCliente;
+    }
+
+    public List<DetalleVenta> getDetalleVentaList() {
+        return detalleVentaList;
+    }
+
+    public void setDetalleVentaList(List<DetalleVenta> detalleVentaList) {
+        this.detalleVentaList = detalleVentaList;
     }
 
     @Override
