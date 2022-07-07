@@ -17,12 +17,12 @@ public class DetalleVenta {
 
     private Double precioTotal;
 
-    @ManyToOne
+    @ManyToOne (cascade={CascadeType.ALL})
     @JoinColumn(name = "id_producto", nullable = false)
     private Producto idProducto;
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne (cascade={CascadeType.ALL})
     @JoinColumn(name = "id_venta", nullable = false)
     private Venta idVenta;
 

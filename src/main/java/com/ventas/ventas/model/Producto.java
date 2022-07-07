@@ -18,7 +18,7 @@ public class Producto {
 
     private Double precio;
 
-    @ManyToOne
+    @ManyToOne (cascade={CascadeType.ALL})
     @JoinColumn(name = "id_tipo_producto", nullable = false)
     private TipoProducto idTipoProducto;
 

@@ -28,7 +28,7 @@ public class Cliente {
     @Column(name="email",nullable = false,length = 150)
     private String email;
 
-    @OneToOne
+    @OneToOne(cascade={CascadeType.ALL})
     @JoinColumn(name = "id_persona", nullable = false)
     private Persona idPersona;
 
